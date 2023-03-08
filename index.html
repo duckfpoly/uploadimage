@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Image</title>
+</head>
+<body>
+  <form id="upload-form" enctype="multipart/form-data">
+    <input type="file" name="avatar">
+    <button type="submit">Upload</button>
+  </form>
+  <script>
+    const form = document.querySelector('#upload-form');
+    const fileInput = document.querySelector('input[type="file"]');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('avatar', fileInput.files[0]);
+        axios.post('http://localhost:8000/upload/images', formData)
+          .then(response => {
+              console.log(response.data);
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    });
+  </script>
+</body>
+</html>
